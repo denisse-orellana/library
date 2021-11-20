@@ -171,6 +171,8 @@ In the views:
 <br>
 ```
 
+And the partial *_book* is created as:
+
 ```html
 # books/_book.html.erb
 
