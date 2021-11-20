@@ -55,4 +55,125 @@ end
 ```
 
 ## Making the reserved books links
+
+First the routes are created:
+
+```ruby
+# routes.rb
+
+patch '/books/:id/reserve', to: 'books#reserve', as: 'reserve'
+patch '/books/:id/cancel_reserve', to: 'books#cancel_reserve', as: 'cancel_reserve'
+```
+
+Then, in the controller:
+
+```ruby
+# books_controller.rb
+
+before_action :set_book, only: %i[ show edit update destroy reserve cancel_reserve]
+
+  def reserve
+    respond_to do |format|
+      if @book.update!(status: 1, user: current_user)
+        format.js { render nothing: true }
+        flash.now[:notice] = 'Book was successfully reserved!'
+      else
+        flash.now[:notice] = 'Book could not be reserved'
+      end
+    end
+  end
+
+  def cancel_reserve
+    respond_to do |format|
+      if @book.update!(status: 0, user: current_user)
+        format.js { render nothing: true }
+        flash.now[:notice] = 'The book is no longer reserved!'
+      else
+        flash.now[:notice] = 'The reserve could not be cancelled'
+      end
+    end
+  end
+```
+
 ## Making the purchased books links
+
+In the routes:
+
+```ruby
+# routes.rb
+
+patch '/books/:id/purchase', to: 'books#purchase', as: 'purchase'
+patch '/books/:id/cancel_purchase', to: 'books#cancel_purchase', as: 'cancel_purchase'
+```
+
+In the controller:
+
+```ruby
+# books_controller.rb
+
+before_action :set_book, only: %i[ show edit update destroy reserve cancel_reserve purchase cancel_purchase]
+
+  def purchase
+    respond_to do |format|
+      if @book.update!(status: 2, user: current_user)
+        format.js { render nothing: true }
+        flash.now[:notice] = 'The book was purchased!'
+      else
+        flash.now[:notice] = 'The book could not be purchased'
+      end
+    end
+  end
+
+  def cancel_purchase
+    respond_to do |format|
+      if @book.update!(status: 0, user: current_user)
+        format.js { render nothing: true }
+        flash.now[:notice] = 'The purchase was cancelled!'
+      else
+        flash.now[:notice] = 'The purchase could not be cancelled!'
+      end
+    end
+  end
+```
+
+In the views:
+
+```html
+# books/index.html.erb
+
+<h1>Books</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Status</th>
+      <th>Isbn</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody id="books">
+    <% @books.each do |book| %>
+      <%= render 'books/book', book: book %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+```
+
+```html
+# books/_book.html.erb
+
+<tr id="book-<%= book.id %>">
+    <td><%= book.title %></td>
+    <td><%= book.author %></td>
+    <td><%= book.status %></td>
+    <td><%= book.isbn %></td>
+    <div class="container">
+        <td><%= link_to 'Reserve', reserve_path(book), remote: true, method: :patch, class: 'btn btn-outline-dark' %></td>
+    </div>
+</tr>
+```
