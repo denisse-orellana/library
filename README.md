@@ -25,6 +25,8 @@ gem "faker", "~> 2.19"
 
 ## Creating the model
 
+<p align="center"><img width="60%" src="app/assets/images/library_model.png"></p>
+
 The model was defined as:
 
 ```console
