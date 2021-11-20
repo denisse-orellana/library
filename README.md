@@ -2,6 +2,13 @@
 
 This project implements a library platform with AJAX (Asynchronous JavaScript and XML).
 
+## Table of Contents
+  * [Ruby and Rails Version](#ruby-and-rails-version)
+  * [Ruby Gems](#ruby-gems)
+  * [Creating the model](#creating-the-model)
+  * [Making the reserved books links](#making-the-reserved-books-links)
+  * [Making the purchased books links](#making-the-purchased-books-links)
+
 ## Ruby and Rails Version
 
 * ruby '2.6.1'
