@@ -42,7 +42,7 @@ rails generate devise User
 rails db:migrate
 ```
 
-Since a User has a book, it's added from the console:
+Since Book and User have a has many associations, from the console:
 
 ```console
 rails g migration addUserToBooks user:references
