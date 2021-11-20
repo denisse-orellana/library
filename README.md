@@ -184,3 +184,11 @@ In the views:
     </div>
 </tr>
 ```
+
+Finally, the js files update the content:
+
+```javascript
+// reserve.js.erb
+
+$('#book-<%= @book.id %>').replaceWith('<%= j render('books/book', book: @book) %>');
+```
