@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand">Library</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <% if user_signed_in? %>
+                    <li class="nav-item active">
+                        <a><%= link_to 'My books', users_show_path(current_user) %></a> &nbsp;
+                    </li>
+                <% else %>
+                    <li class="nav-item active">
+                        <a><%= link_to 'Log in', new_user_session_path %></a> &nbsp;
+                    </li>                
+                    <li class="nav-item">
+                        <a><%= link_to 'Sign up', new_user_registration_path %></a>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+        
+    </div>
+</nav>

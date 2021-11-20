@@ -1,0 +1,9 @@
+<tr id="book-<%= book.id %>">
+    <td><%= book.title %></td>
+    <td><%= book.author %></td>
+    <td><%= book.status %></td>
+    <td><%= book.isbn %></td>
+    <div class="container">
+        <td><%= link_to 'Reserve', reserve_path(book), remote: true, method: :patch, class: 'btn btn-outline-dark' %></td>
+    </div>
+</tr>

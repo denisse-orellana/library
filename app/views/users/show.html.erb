@@ -1,0 +1,73 @@
+<h1>Reserved Books</h1>
+
+<table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Status</th>
+        <th>Isbn</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+  
+    <tbody id="books">
+      <% @books.each do |book| %>
+        <tr id="book-<%= book.id %>">
+            <td><%= book.title %></td>
+            <td><%= book.author %></td>
+            <td><%= book.status %></td>
+            <td><%= book.isbn %></td>
+            <div class="container">
+              <td><%= link_to 'Cancel Reserve', cancel_reserve_path(book), remote: true, method: :patch, class: 'btn btn-outline-danger' %></td>
+              <% if book.status == 2 %>
+                <td><%= link_to 'Cancel Purchase', cancel_purchase_path(book), remote: true, method: :patch, class: 'btn btn-outline-danger' %></td>
+              <% else %>
+                <td><%= link_to 'Purchase', purchase_path(book), remote: true, method: :patch, data: { confirm: "Do you want to purhase #{book.title} ?"}, class: 'btn btn-outline-dark' %></td>
+              <% end %>
+            </div>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+<h1>Purchased Books</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Status</th>
+        <th>Isbn</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+  
+    <tbody id="books">
+      <% @books_purchased.each do |book| %>
+        <tr id="book-<%= book.id %>">
+            <td><%= book.title %></td>
+            <td><%= book.author %></td>
+            <td><%= book.status %></td>
+            <td><%= book.isbn %></td>
+            <div class="container">
+              <% if book.status == 2 %>
+                <td><%= link_to 'Cancel Purchase', cancel_purchase_path(book), remote: true, method: :patch, class: 'btn btn-outline-danger' %></td>
+              <% else %>
+                <td><%= link_to 'Purchase', purchase_path(book), remote: true, method: :patch, data: { confirm: "Do you want to purhase #{book.title} ?"}, class: 'btn btn-outline-dark' %></td>
+              <% end %>
+            </div>
+            <div class="container">
+              <td><%# link_to 'Show', book, class: 'btn btn-success' %></td>
+              <td><%# link_to 'Edit', edit_book_path(book), class: 'btn btn-warning'  %></td>
+              <td><%= link_to 'Delete', book, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %></td>
+            </div>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+
+  <td><%= link_to 'Back', books_path, class: 'btn btn-success'  %></td>
